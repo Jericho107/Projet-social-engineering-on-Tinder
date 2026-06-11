@@ -1,0 +1,21 @@
+{
+  "dataset_name": "Speed Dating Experiment",
+  "source": "Columbia Business School speed dating experiment",
+  "rows": 8378,
+  "columns": 195,
+  "participants": 552,
+  "waves": 21,
+  "business_question": "Why do some dates lead to YES and then MATCH?",
+  "analysis_sections": [
+    "data_quality_audit",
+    "exploratory_analysis",
+    "statistical_analysis",
+    "feature_engineering",
+    "machine_learning",
+    "explainable_ai",
+    "data_leakage_analysis",
+    "dashboard",
+    "storytelling",
+    "slides"
+  ]
+}
