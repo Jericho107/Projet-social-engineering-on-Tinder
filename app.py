@@ -6,7 +6,7 @@ import joblib
 import pandas as pd
 import streamlit as st
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parent
 PROCESSED = ROOT / "data" / "processed" / "final_dataset.csv"
 MODEL_PATH = ROOT / "reports" / "model_bundle.joblib"
 
