@@ -336,7 +336,6 @@ def main() -> None:
     ensure_structure()
     write_notebooks()
     write_dashboard()
-    write_readme()
     write_slides()
 
     raw_path = download_dataset(RAW_DIR / DEFAULT_RAW_FILENAME)
