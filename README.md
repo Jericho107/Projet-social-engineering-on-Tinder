@@ -1,51 +1,150 @@
-# Speed Dating Analytics
+<div align="center">
 
-Projet portfolio complet sur le dataset Speed Dating, conçu pour un rendu JEDHA et un usage en entretien Data Analyst Junior.
+# Speed Dating Behavioral Analytics
 
-## Business Problem
-Pourquoi certaines rencontres aboutissent-elles à un `YES` puis à un `MATCH` ?
+### Statistical inference · leakage-aware machine learning · explainability · decision boundaries
 
-## Questions métier
-- Les participants disent-ils réellement ce qu’ils recherchent ?
-- Quels facteurs influencent le `YES` ?
-- Quels facteurs influencent le `MATCH` ?
-- Quel est le poids réel de l’attractivité ?
-- Quel est le rôle de l’âge ?
-- Quel est le rôle des intérêts communs ?
-- Quel est le rôle des variables démographiques ?
-- Peut-on prédire un match ?
+**Python · Pandas · SciPy · Statsmodels · scikit-learn · XGBoost · SHAP · Streamlit · CI**
 
-## Structure
-- `data/`: données brutes et données préparées
-- `notebooks/`: audit, EDA, statistique, ML, storytelling
-- `src/`: pipeline industrialisable
-- `dashboard/`: application Streamlit
-- `reports/`: livrables exécutifs et figures
-- `assets/`: ressources de présentation
+**Pretoria BI — Data · Intelligence · Performance**
 
-## Méthodologie
-1. Audit qualité complet
-2. EDA démographique et comportementale
-3. Tests statistiques et tailles d’effet
-4. Feature engineering orientée métier
-5. Machine learning avec validation croisée
-6. Explainable AI avec SHAP
-7. Analyse de fuite de données
-8. Dashboard Streamlit
-9. Storytelling exécutif
+</div>
 
-## Installation
-```bash
-pip install -r requirements.txt
+---
+
+## Analytical question
+
+> **Which observed signals are associated with a participant saying YES, and which signals remain useful when the harder outcome is a mutual MATCH?**
+
+This repository analyses the public Speed Dating experiment dataset as a behavioral-analytics case study. It separates descriptive patterns, statistical evidence and predictive performance instead of treating correlation, feature importance and causality as interchangeable.
+
+No production dating system, psychological diagnosis or causal claim is implied.
+
+---
+
+## Why this project exists
+
+The value of the case study is not the theme. It demonstrates several analytical problems that recur in commercial work:
+
+- high missingness and survey-style data quality;
+- stated preference versus observed behaviour;
+- categorical and continuous statistical testing;
+- effect sizes in addition to p-values;
+- classification with class imbalance;
+- feature leakage;
+- explainability;
+- translating model output into bounded decision language.
+
+---
+
+## Evidence model
+
+```text
+RAW EXPERIMENT DATA
+        ↓
+DATA AUDIT
+        ↓
+BEHAVIOURAL EDA
+        ↓
+STATISTICAL TESTS + EFFECT SIZES
+        ↓
+FEATURE CONTRACT
+        ↓
+BASELINE / CANDIDATE MODELS
+        ↓
+LEAKAGE AUDIT
+        ↓
+OUT-OF-SAMPLE METRICS
+        ↓
+EXPLAINABILITY
+        ↓
+BOUNDED INTERPRETATION
 ```
 
-## Lancement
-```bash
-python build_project.py
-streamlit run dashboard/app.py
+### Fail-closed feature governance
+
+`src/governance.py` explicitly rejects:
+
+- the prediction target itself;
+- known post-outcome / partner-outcome fields;
+- invalid target states;
+- impossible probability outputs.
+
+CI deliberately injects target leakage and requires the audit to fail.
+
+---
+
+## Business-style questions
+
+1. Do declared preferences align with observed decisions?
+2. Which variables have the strongest association with a YES?
+3. Which signals survive when the target becomes mutual MATCH?
+4. How much predictive performance disappears when post-outcome information is removed?
+5. Are statistically significant effects also practically meaningful?
+6. Which model explanations are stable enough to discuss, and which are merely model-specific?
+
+---
+
+## Repository structure
+
+```text
+.
+├── data/
+├── notebooks/
+├── reports/
+├── src/
+│   └── governance.py
+├── tests/
+├── app.py
+├── build_project.py
+├── pyproject.toml
+├── requirements.txt
+└── README.md
 ```
 
-## Résultats attendus
-- Identification des signaux du `YES` et du `MATCH`
-- Comparaison des effets de l’attractivité, de l’âge et des intérêts communs
-- Modèle de prédiction interprétable et version réaliste sans fuite de données
+---
+
+## Validation
+
+Static and governance checks:
+
+```bash
+python -m pip install -e ".[dev]"
+python -m py_compile app.py src/governance.py
+ruff check app.py src/governance.py tests
+pytest -q
+```
+
+Run the Streamlit interface after generated artifacts are available:
+
+```bash
+streamlit run app.py
+```
+
+The root Streamlit application now resolves repository assets from the repository root rather than its parent directory.
+
+---
+
+## Interpretation boundary
+
+This project may support statements such as:
+
+- a variable is associated with an outcome in this dataset;
+- a model improves or degrades under a documented feature set;
+- an effect has a measured magnitude;
+- removing leaky information changes out-of-sample performance.
+
+It does **not** support claims that:
+
+- a feature causes attraction or matching;
+- observed demographic relationships generalise to all populations;
+- a high-performing leaky model is deployable;
+- SHAP values establish causal influence.
+
+---
+
+## Proof standard
+
+> **A result is only portfolio evidence when its assumptions, evaluation path and failure mode are inspectable.**
+
+The repository is being consolidated under the same Pretoria BI standard used by the flagship projects: **Understand · Decide · Act · Measure**.
