@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "speed-dating-behavioral-analytics"
+version = "1.0.0"
+description = "Behavioral analytics case study with statistical inference, leakage-aware modelling and explainable ML."
+requires-python = ">=3.12"
+dependencies = [
+  "pandas>=2.1",
+  "numpy>=1.26",
+  "scipy>=1.11",
+  "scikit-learn>=1.4",
+  "matplotlib>=3.8",
+  "seaborn>=0.13",
+  "joblib>=1.3",
+  "streamlit>=1.33",
+  "plotly>=5.20",
+  "statsmodels>=0.14",
+  "shap>=0.45",
+  "xgboost>=2.0",
+  "reportlab>=4.0",
+  "nbformat>=5.10",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8,<9",
+  "ruff>=0.9,<1",
+]
+
+[tool.setuptools]
+py-modules = []
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
