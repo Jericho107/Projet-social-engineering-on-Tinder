@@ -1,0 +1,45 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install validation dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest ruff pandas joblib streamlit
+      - name: Compile governed runtime modules
+        run: |
+          python -m py_compile app.py src/governance.py
+      - name: Lint governed runtime modules
+        run: ruff check app.py src/governance.py tests
+      - name: Unit tests
+        run: pytest -q
+      - name: Reverse-test leakage control
+        shell: bash
+        run: |
+          if python - <<'PY'
+          from src.governance import audit_prediction_features
+          audit_prediction_features(["age", "attr", "match"])
+          PY
+          then
+            echo "Expected leakage audit to fail."
+            exit 1
+          fi
+          echo "Leakage corruption rejected as expected."
