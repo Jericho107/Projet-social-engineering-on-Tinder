@@ -21,7 +21,16 @@ def load_model() -> dict:
     return joblib.load(MODEL_PATH)
 
 
-def build_prediction_frame(bundle: dict, age: float, age_o: float, attr: float, fun: float, intel: float, like: float, interest_alignment: float) -> pd.DataFrame:
+def build_prediction_frame(
+    bundle: dict,
+    age: float,
+    age_o: float,
+    attr: float,
+    fun: float,
+    intel: float,
+    like: float,
+    interest_alignment: float,
+) -> pd.DataFrame:
     feature_columns = bundle.get("feature_columns", [])
     values = {column: 0 for column in feature_columns}
     values.update(
