@@ -54,7 +54,10 @@ st.title("Speed Dating Analytics Dashboard")
 data = load_data()
 bundle = load_model()
 
-page = st.sidebar.radio("Navigation", ["Overview", "Behaviour Analysis", "Statistical Insights", "Match Prediction"])
+page = st.sidebar.radio(
+    "Navigation",
+    ["Overview", "Behaviour Analysis", "Statistical Insights", "Match Prediction"],
+)
 
 if page == "Overview":
     col1, col2, col3 = st.columns(3)
@@ -68,8 +71,14 @@ elif page == "Behaviour Analysis":
     st.dataframe(data[["age", "age_o", "samerace", "match", "dec"]].describe().T)
 elif page == "Statistical Insights":
     st.subheader("Statistical results")
-    st.write("Use the statistical notebook and exported reports for detailed p-values and effect sizes.")
-    st.write("Key variables: attractiveness, fun, intelligence, shared interests, age gap, same race.")
+    st.write(
+        "Use the statistical notebook and exported reports for detailed "
+        "p-values and effect sizes."
+    )
+    st.write(
+        "Key variables: attractiveness, fun, intelligence, shared interests, "
+        "age gap, same race."
+    )
 else:
     st.subheader("Match probability estimator")
     age = st.number_input("Age", min_value=18, max_value=60, value=28)
