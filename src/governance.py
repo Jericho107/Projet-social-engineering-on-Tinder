@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-
 POST_OUTCOME_FIELDS = {
     "match",
     "dec_o",
@@ -45,7 +44,9 @@ def audit_prediction_features(
     )
 
 
-def assert_binary_target(values: list[object] | tuple[object, ...] | set[object]) -> None:
+def assert_binary_target(
+    values: list[object] | tuple[object, ...] | set[object],
+) -> None:
     """Require a strict binary target before statistical or predictive modelling."""
 
     unique = {int(value) for value in values}
