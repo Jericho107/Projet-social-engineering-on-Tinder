@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from collections.abc import Iterable
 from dataclasses import dataclass
 
 
@@ -23,7 +22,7 @@ class FeatureAudit:
 
 
 def audit_prediction_features(
-    features: Iterable[str],
+    features: list[str] | tuple[str, ...] | set[str],
     target: str = "match",
 ) -> FeatureAudit:
     """Fail closed when outcome or post-outcome information enters a realistic model."""
@@ -46,7 +45,7 @@ def audit_prediction_features(
     )
 
 
-def assert_binary_target(values: Iterable[object]) -> None:
+def assert_binary_target(values: list[object] | tuple[object, ...] | set[object]) -> None:
     """Require a strict binary target before statistical or predictive modelling."""
 
     unique = {int(value) for value in values}
